@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
+import {../utils/supabase.ts
   faCircleXmark,
   faCloudArrowUp,
   faPlus,
@@ -617,4 +617,5 @@ export default function AddProject() {
       </div>
     </motion.div>
   );
-}
+              }
+

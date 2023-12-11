@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { createSupabaseBrowser } from "../utils/supabase";
+// import { createSupabaseBrowser } from "../utils/supabase";
 import type { User } from "@supabase/supabase-js";
 
 const navMotion = {
@@ -58,21 +58,20 @@ export default function Nav() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const supabase = createSupabaseBrowser();
-    async function getUser() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
-      console.log(user);
-    }
-
-    getUser();
+    // const supabase = createSupabaseBrowser();
+    // async function getUser() {
+    //   const {
+    //     data: { user },
+    //   } = await supabase.auth.getUser();
+    //   setUser(user);
+    //   console.log(user);
+    // }
+    // getUser();
   }, []);
 
   async function logout() {
-    const supabase = createSupabaseBrowser();
-    await supabase.auth.signOut();
+    // const supabase = createSupabaseBrowser();
+    // await supabase.auth.signOut();
     setUser(null);
   }
 

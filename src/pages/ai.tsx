@@ -131,7 +131,7 @@ const AI: React.FC = () => {
                       }}
                       transition={{ type: "spring", stiffness: 50 }}
                       // Apply additional styles if the character is part of "SparkIdeator"
-                      style={isPartOfName ? {fontWeight: "bolder" } : {}}
+                      style={isPartOfName ? { fontWeight: "bolder" } : {}}
                     >
                       {char}
                     </motion.span>

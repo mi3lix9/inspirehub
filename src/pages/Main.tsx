@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import type { Database } from "../../types/supabase";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 type Project = Database["public"]["Views"]["projectdetails"]["Row"];
 
@@ -32,11 +32,11 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-type Props = { projects: Project[] };
-export default function Main({ projects }: Props) {
+export default function Main() {
+  const navigate = useNavigate();
+  // const projects = useLoaderData() as Project[];
   const navigateToProjectDetails = (projectId: string) => {
-    // console.log(`Navigate to details of project with id: ${projectId}`);
-    window.location.href = "/project/" + projectId;
+    navigate("/project/" + projectId);
   };
 
   const [query, setQuery] = useState("");
@@ -59,6 +59,10 @@ export default function Main({ projects }: Props) {
             .toLowerCase()
             .includes(query.toLowerCase());
         });
+
+  // const { data: projects, error } = await supabase
+  //   .from("projectdetails")
+  //   .select("*");
 
   return (
     <div className="bg-[#f7f7f7] pt-20 flex flex-col items-center min-h-screen font-roboto gap-12">
