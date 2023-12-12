@@ -25,6 +25,7 @@ import Box from "@material-ui/core/Box";
 import { withStyles } from "@material-ui/core/styles";
 import { supabase } from "../utils/supabase.ts";
 import { useParams } from "react-router-dom";
+import projectRateImage from "../assets/offer.svg";
 
 type Slide = {
   url: string;
@@ -231,6 +232,21 @@ const ShowProject: React.FC = () => {
                   ))}
                 </div>
               </AccordionItem>
+
+              <div className="w-full h-auto mx-auto mt-16 ">
+                <img src={projectRateImage} alt="Project rate" />
+              </div>
+
+              <div className="w-full mt-8">
+                <a
+                  className=" cursor-pointer rounded-lg w-full bg-[#5f7fbf] text-center border-2 border-[#5f7fbf] px-5 py-2 text-xl font-bold text-white
+                   align-middle transition-all duration-700 hover:bg-[#3e60a3] hover:border-[#3e60a3] focus:outline-none shadow-md hover:shadow-xl 
+                   disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none tracking-wide"
+                  type="button"
+                >
+                  Collaborate
+                </a>
+              </div>
             </div>
 
             <Transition.Root show={open} as={Fragment}>
