@@ -1,7 +1,7 @@
 import { renderStars } from "../utils/renderStars";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faSliders } from "@fortawesome/free-solid-svg-icons";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -10,7 +10,9 @@ import {
 } from "@heroicons/react/24/solid";
 import { Combobox, Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Database } from "../../types/supabase";
+import { supabase } from "../utils/supabase";
 
 type Project = Database["public"]["Views"]["projectdetails"]["Row"];
 
@@ -32,7 +34,8 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Main() {
+export default function Projects() {
+  const [projects, setProjects] = useState<Project[]>([]);
   const navigate = useNavigate();
   // const projects = useLoaderData() as Project[];
   const navigateToProjectDetails = (projectId: string) => {
@@ -43,6 +46,15 @@ export default function Main() {
   const [selectedSort, setSelectedSort] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
   const [open, setOpen] = useState(false);
+
+  const getProjects = async () => {
+    const { data, error } = await supabase.from("projectdetails").select("*");
+    if (data !== null && typeof data !== "undefined") setProjects(data ?? []);
+  };
+
+  useEffect(() => {
+    getProjects();
+  }, []);
 
   const filteredSorts =
     query === ""
@@ -108,7 +120,7 @@ export default function Main() {
             </div>
           </div>
           <a
-            href="UploadProjectPage"
+            href="upload-project"
             className="flex select-none items-center cursor-pointer justify-center rounded-lg  bg-[#5f7fbf] border-2 border-[#5f7fbf] px-4 py-2 mt-3
                                     text-base font-bold text-white align-middle transition-all duration-700 hover:bg-[#3e60a3] hover:border-[#3e60a3] focus:outline-none shadow-md hover:shadow-xl
                                     disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none sm:mt-0 sm:w-auto"

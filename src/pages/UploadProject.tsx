@@ -61,8 +61,8 @@ export default function AddProject() {
     return () => clearInterval(interval);
   }, [images]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>    ) => {
-    e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     // Simple form validation as an example
     if (!title || !description) {
       setSubmitMessage("Please fill in all required fields.");
@@ -104,7 +104,7 @@ export default function AddProject() {
         motivation,
         solution: "solution",
         creatorID: user!.id,
-        imageURL: "",
+        image: file,
         description,
         category,
         tools: tools,
@@ -114,8 +114,6 @@ export default function AddProject() {
           Twitter: member.twitter,
           photo: "",
         })),
-
-        
       });
 
       // Set submission state and display a success message
@@ -125,7 +123,7 @@ export default function AddProject() {
       // Reset form fields and state after successful upload
       setTitle("");
       setDescription("");
-      navigate("/projects")
+      // navigate("/projects")
       // ...reset other state variables
     } catch (error: any) {
       // Handle any errors during the upload process
@@ -138,7 +136,6 @@ export default function AddProject() {
     }, 5000); // Adjust the delay as needed
   };
 
- 
   const handleAddTeamMember = () => {
     setTeamMembers([...teamMembers, { name: "", linkedIn: "", twitter: "" }]);
   };
@@ -151,6 +148,7 @@ export default function AddProject() {
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+    setFile(file);
     if (file) {
       const reader = new FileReader();
 
@@ -185,10 +183,14 @@ export default function AddProject() {
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("hello");
+
     const file = event.target.files?.[0];
     if (file) {
-      setFileName(file.name);
       setFile(file);
+      console.log({ file: event.target.files });
+
+      setFileName(file.name);
     } else {
       setFileName("");
     }
@@ -517,7 +519,6 @@ export default function AddProject() {
                 name="document"
                 type="file"
                 className="hidden"
-                onChange={handleFileChange}
                 id="file-upload"
               />
             </div>

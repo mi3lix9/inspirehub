@@ -13,6 +13,9 @@ import Login from "./pages/login.tsx";
 import Register from "./pages/register.tsx";
 import HomePage from "./pages/Home.tsx";
 import AddProject from "./pages/UploadProject.tsx";
+import ForgotPassword from "./pages/ForgotPassword.tsx";
+import AI from "./pages/ai.tsx";
+import Projects from "./pages/projects.tsx";
 
 const router = createBrowserRouter([
   {
@@ -20,13 +23,17 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
+    path: "/projects",
+    element:<Projects />
+  },
+  {
     path: "/about-us",
     element: <AboutUs />,
   },
-  // {
-  //   path: "/ai",
-  //   element: <AI />,
-  // },
+  {
+    path: "/ai",
+    element: <AI />,
+  },
   {
     path: "/contact-us",
     element: <ContactUs />,
@@ -37,7 +44,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/forgot-password",
-    element: <EditProfile />,
+    element: <ForgotPassword />,
   },
   {
     path: "/new-password",
