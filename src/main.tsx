@@ -16,6 +16,7 @@ import AddProject from "./pages/UploadProject.tsx";
 import ForgotPassword from "./pages/ForgotPassword.tsx";
 import AI from "./pages/ai.tsx";
 import Projects from "./pages/projects.tsx";
+import ShowProject from "./components/ShowProject.tsx";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,11 @@ const router = createBrowserRouter([
     path: "/upload-project",
     element: <AddProject />,
   },
+  {
+    path: "/project/:project_id",
+    element: <ShowProject />,
+
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

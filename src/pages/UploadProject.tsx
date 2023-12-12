@@ -73,26 +73,7 @@ export default function AddProject() {
     setSubmitMessage("");
 
     try {
-      // let imageUrl = "";
-      // if (file) {
-      //   // Upload the image to Supabase storage
-      //   const fileExt = file.name.split(".").pop();
-      //   const filePath = `${title
-      //     .replace(/\s+/g, "_")
-      //     .toLowerCase()}_mainimage.${fileExt}`;
-      //   const { data: fileData, error: uploadError } = await supabase.storage
-      //     .from("projects")
-      //     .upload(filePath, file);
-
-      //   if (uploadError) {
-      //     throw new Error(uploadError.message);
-      //   }
-
-      //   // Construct the URL to access the file
-      //   // Note: Adjust this based on how your Supabase URL structure is set up
-      //   imageUrl = `${supabase.storage.getUrl("projects")}/${filePath}`;
-      // }
-
+  
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -125,6 +106,7 @@ export default function AddProject() {
       setDescription("");
       // navigate("/projects")
       // ...reset other state variables
+      navigate("/projects")
     } catch (error: any) {
       // Handle any errors during the upload process
       setSubmitMessage(`An error occurred: ${error.message}`);

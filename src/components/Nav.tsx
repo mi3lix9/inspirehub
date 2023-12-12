@@ -28,7 +28,7 @@ const itemMotionDesktop = {
 };
 
 const navLinks = [
-  { name: "Home", href: "main", id: 1 },
+  { name: "Projects", href: "projects", id: 1 },
   { name: "AI", href: "ai", id: 2 },
   { name: "About us", href: "about-us", id: 3 },
 ];

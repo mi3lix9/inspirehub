@@ -14,62 +14,18 @@ import {
 import { faXTwitter, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import type { Database } from "../../types/supabase.ts";
 import { Dialog, Transition } from "@headlessui/react";
-import { XMarkIcon, CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import {
+  XMarkIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+} from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/solid";
-import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
-import { withStyles } from '@material-ui/core/styles';
+import Rating from "@material-ui/lab/Rating";
+import Box from "@material-ui/core/Box";
+import { withStyles } from "@material-ui/core/styles";
+import { supabase } from "../utils/supabase.ts";
+import { useParams } from "react-router-dom";
 
-// TeamMember interface
-// interface TeamMember {
-//   name: string;
-//   linkedIn: string;
-//   twitter: string;
-// }
-
-// interface project {
-//   title: string;
-//   images: string[];
-//   date: string;
-//   rate: number;
-//   category: string;
-//   budget: string;
-//   currency: string;
-//   description: string;
-//   motivation: string;
-//   teamMembers: TeamMember[];
-//   features: string;
-//   resources: string;
-//   tools: string;
-//   others: string;
-// }
-
-// const project: project = {
-//   title: "InspireHub",
-//   images: ["src/assets/ContactUs.png"],
-//   date: "2023-01-01",
-//   rate: 3.5,
-//   category: "Technology",
-//   budget: "5000",
-//   currency: "SAR",
-//   description:
-//     "It is a website that is a hub for inspiring and innovative project ideas...",
-//   motivation:
-//     "The primary motivation behind InspireHub is to address a significant challenge...",
-//   teamMembers: [
-//     { name: "Abdullah Almatawah", linkedIn: "aamhaamm", twitter: "aamhaamm" },
-//     {
-//       name: "Hassan Alabdulal",
-//       linkedIn: "HassanAlabdulal",
-//       twitter: "HassanAlabdulal",
-//     },
-//   ],
-//   features: "Easy to use, Suitable for everyone ...",
-//   resources: "https://github.com/InspireHub",
-//   tools: "React, Astro ...",
-//   others:
-//     "This is the first version, we are working to update it as soon as depending on your suggestions...",
-// };
 type Slide = {
   url: string;
 };
@@ -86,28 +42,30 @@ const slides: Slide[] = [
   },
 ];
 
-type Props = {
-  project: Database["public"]["Views"]["projectdetails_extended"]["Row"];
-  teamMembers: Database["public"]["Tables"]["TeamMembers"]["Row"][];
-  tools: Database["public"]["Tables"]["Tools"]["Row"][];
-};
+type Project = Database["public"]["Views"]["projectdetails_extended"]["Row"];
+type TeamMembers = Database["public"]["Tables"]["TeamMembers"]["Row"];
+type Tools = Database["public"]["Tables"]["Tools"]["Row"];
 
 const StyledRating = withStyles({
   iconFilled: {
-    color: '#aa8a41',
+    color: "#aa8a41",
   },
-  iconHover: {
-
-  },
+  iconHover: {},
 })(Rating);
 
-const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
+const ShowProject: React.FC = () => {
+  const [project, setProject] = useState<Project>({});
+  const [teamMembers, setMembers] = useState<TeamMembers[]>([]);
+  const [tools, setTools] = useState<Tools[]>([]);
+  const params = useParams();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [open, setOpen] = useState(false); // Rating Modal State
   const [ratingValue, setRatingValue] = useState<number | null>(null); // Track rating value
   const [hasRated, setHasRated] = useState(false); // Track if the user has rated
-  const [showSuccessfulRatingMessage, setShowSuccessfulRatingMessage] = useState(false); // Show message if user rated successfully
-  const [showRepeatedRatingMessage, setShowRepeatedRatingMessage] = useState(false); // Show message if user has already rated
+  const [showSuccessfulRatingMessage, setShowSuccessfulRatingMessage] =
+    useState(false); // Show message if user rated successfully
+  const [showRepeatedRatingMessage, setShowRepeatedRatingMessage] =
+    useState(false); // Show message if user has already rated
 
   const goToPrevious = (): void => {
     const isFirstSlide: boolean = currentIndex === 0;
@@ -117,6 +75,28 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
     setCurrentIndex(newIndex);
   };
 
+  const getProjects = async () => {
+    const { project_id } = params;
+    const { data: project, error: projectError } = await supabase
+      .from("projectdetails_extended")
+      .select("*")
+      .eq("id", project_id!)
+      .single();
+    setProject(project!);
+
+    const { data: teamMembers, error: membersError } = await supabase
+      .from("TeamMembers")
+      .select("*")
+      .eq("project_id", project!.id!);
+    setMembers(teamMembers!);
+
+    const { data: tools, error: toolsError } = await supabase
+      .from("Tools")
+      .select("*")
+      .eq("project_id", project!.id!);
+    setTools(tools);
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
       goToNext();
@@ -124,6 +104,10 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
 
     return () => clearInterval(timer);
   }, [currentIndex]);
+
+  useEffect(() => {
+    getProjects();
+  }, []);
 
   const goToNext = (): void => {
     const isLastSlide: boolean = currentIndex === slides.length - 1;
@@ -138,7 +122,7 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
       return;
     }
 
-    console.log('Rating Value:', ratingValue);
+    console.log("Rating Value:", ratingValue);
     // Logic to save the rating
     setHasRated(true); // Set hasRated to true after rating
     setShowSuccessfulRatingMessage(true);
@@ -177,7 +161,9 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
               <p className="mb-2 text-base font-medium tracking-wider text-[#2b2b2b] uppercase">
                 Category
               </p>
-              <p className="text-base font-medium text-[#5e5e5e]">{project.category}</p>
+              <p className="text-base font-medium text-[#5e5e5e]">
+                {project.category}
+              </p>
             </div>
             <div className="flex flex-col items-center justify-center gap-2 py-12 w-full">
               <p className="mb-2 text-base font-medium tracking-wider text-[#2b2b2b] uppercase">
@@ -191,7 +177,9 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
               <dt className="mb-2 text-base font-medium tracking-wider text-[#2b2b2b] uppercase">
                 Date
               </dt>
-              <dd className="text-base font-medium text-[#5e5e5e]">{project.created_at}</dd>
+              <dd className="text-base font-medium text-[#5e5e5e]">
+                {project.created_at}
+              </dd>
             </div>
             <div className="flex flex-col items-center justify-center gap-2 px-16 py-12 w-full">
               <AccordionItem
@@ -285,7 +273,10 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
                         </div>
                         <div className="sm:flex sm:items-start">
                           <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-blue-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
-                            <StarIcon className="w-6 h-6 text-[#3e60a3]" aria-hidden="true" />
+                            <StarIcon
+                              className="w-6 h-6 text-[#3e60a3]"
+                              aria-hidden="true"
+                            />
                           </div>
                           <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <Dialog.Title
@@ -295,12 +286,18 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
                               Rate Project
                             </Dialog.Title>
                             <div className="my-12 space-y-8">
-                              <Box component="fieldset" mb={3} borderColor="transparent">
+                              <Box
+                                component="fieldset"
+                                mb={3}
+                                borderColor="transparent"
+                              >
                                 <StyledRating
                                   name="rating"
                                   precision={0.5}
                                   size="large"
-                                  onChange={(event, newValue) => setRatingValue(newValue)}
+                                  onChange={(event, newValue) =>
+                                    setRatingValue(newValue)
+                                  }
                                 />
                               </Box>
                             </div>
@@ -355,17 +352,24 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
                     <div className="p-4">
                       <div className="flex items-start">
                         <div className="flex-shrink-0">
-                          <CheckCircleIcon className="h-6 w-6 text-green-400" aria-hidden="true" />
+                          <CheckCircleIcon
+                            className="h-6 w-6 text-green-400"
+                            aria-hidden="true"
+                          />
                         </div>
                         <div className="ml-3 w-0 flex-1 pt-0.5">
-                          <p className="text-sm font-medium text-gray-900">Thank You!</p>
-                          <p className="mt-1 text-sm text-gray-500">Your feedback has been successfully recorded.</p>
+                          <p className="text-sm font-medium text-gray-900">
+                            Thank You!
+                          </p>
+                          <p className="mt-1 text-sm text-gray-500">
+                            Your feedback has been successfully recorded.
+                          </p>
                         </div>
                         <div className="ml-4 flex-shrink-0 flex">
                           <button
                             className="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             onClick={() => {
-                              setShowSuccessfulRatingMessage(false)
+                              setShowSuccessfulRatingMessage(false);
                             }}
                           >
                             <span className="sr-only">Close</span>
@@ -399,17 +403,24 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
                     <div className="p-4">
                       <div className="flex items-start">
                         <div className="flex-shrink-0">
-                          <XCircleIcon className="h-6 w-6 text-red-400" aria-hidden="true" />
+                          <XCircleIcon
+                            className="h-6 w-6 text-red-400"
+                            aria-hidden="true"
+                          />
                         </div>
                         <div className="ml-3 w-0 flex-1 pt-0.5">
-                          <p className="text-sm font-medium text-gray-900">Warning!</p>
-                          <p className="mt-1 text-sm text-gray-500">You have already rated this project.</p>
+                          <p className="text-sm font-medium text-gray-900">
+                            Warning!
+                          </p>
+                          <p className="mt-1 text-sm text-gray-500">
+                            You have already rated this project.
+                          </p>
                         </div>
                         <div className="ml-4 flex-shrink-0 flex">
                           <button
                             className="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             onClick={() => {
-                              setShowRepeatedRatingMessage(false)
+                              setShowRepeatedRatingMessage(false);
                             }}
                           >
                             <span className="sr-only">Close</span>
@@ -441,8 +452,9 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
                     key={slide.url}
                     src={slide.url}
                     alt={`Slide ${index}`}
-                    className={`w-full h-full object-contain rounded-xl absolute transition-opacity duration-700 ease-in-out ${index === currentIndex ? "opacity-100" : "opacity-0"
-                      }`}
+                    className={`w-full h-full object-contain rounded-xl absolute transition-opacity duration-700 ease-in-out ${
+                      index === currentIndex ? "opacity-100" : "opacity-0"
+                    }`}
                   />
                 ))}
 
@@ -466,8 +478,9 @@ const ShowProject: React.FC<Props> = ({ project, teamMembers, tools }) => {
                   <span
                     key={index}
                     onClick={() => setCurrentIndex(index)}
-                    className={`inline-block cursor-pointer rounded-full p-2 ${index === currentIndex ? "bg-[#5f7fbf]" : "bg-[#c4c4c4]"
-                      }`}
+                    className={`inline-block cursor-pointer rounded-full p-2 ${
+                      index === currentIndex ? "bg-[#5f7fbf]" : "bg-[#c4c4c4]"
+                    }`}
                   ></span>
                 ))}
               </div>
