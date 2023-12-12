@@ -1,15 +1,18 @@
 import React from "react";
 import { AccordionSection, TableComponent } from "../components/AboutUs";
 
+const style =
+  "p-2 mb-4 font-normal text-black max-md:p-1 max-md:m-1 font-roboto rounded-md bg-[#f7f7f7] shadow-sm hover:shadow-md transition-all duration-300 ease-in-out";
+
 const AboutUs: React.FC = () => (
   <div className="bg-[#f7f7f7] mt-16 pl-[60px] pr-[20px] flex justify-center items-start min-h-screen">
-    <div className="flex flex-col flex-1 pr-8 space-y-6">
-      <h1 className="text-[#bfa260] font-roboto font-bold text-3xl mb-4 text-center">
+    <div className="flex flex-col flex-1 pr-8 space-y-3">
+      <h1 className="text-[#bfa260] font-roboto font-bold text-3xl mb-10 mt-5 text-center ">
         About Us
       </h1>
 
-      <AccordionSection title="Inspirehub: A Journey of Passion and Innovation">
-        <p className="font-normal text-black font-roboto">
+      <AccordionSection title="A Journey of Passion">
+        <p className={style}>
           We are a team of dreamers, innovators, and educators united by a
           common passion: to empower and inspire the next generation of creative
           minds. Our journey began with a simple yet powerful idea – to create a
@@ -19,7 +22,7 @@ const AboutUs: React.FC = () => (
       </AccordionSection>
 
       <AccordionSection title="Our Inspiration">
-        <p className="font-normal text-black font-roboto">
+        <p className={style}>
           Each member of our team has walked the path of discovery, facing
           challenges and embracing opportunities. We've experienced firsthand
           the power of collaboration and the impact of sharing knowledge. That's
@@ -29,7 +32,7 @@ const AboutUs: React.FC = () => (
       </AccordionSection>
 
       <AccordionSection title="Our Commitment">
-        <p className="font-normal text-black font-roboto">
+        <p className={style}>
           At Inspirehub, we are committed to fostering a nurturing environment.
           We believe in the power of feedback, the importance of community, and
           the potential of every idea. Our mission goes beyond providing a
@@ -39,7 +42,7 @@ const AboutUs: React.FC = () => (
       </AccordionSection>
 
       <AccordionSection title="Our Values">
-        <p className="font-normal text-black font-roboto">
+        <p className={style}>
           Empathy and Support: We understand the journey of innovation and
           strive to offer the support and guidance needed to navigate it.
           <br />
@@ -53,7 +56,7 @@ const AboutUs: React.FC = () => (
       </AccordionSection>
 
       <AccordionSection title="Join Our Story">
-        <p className="font-normal text-black font-roboto">
+        <p className={style}>
           Every member of our community, every user who shares a project, and
           every feedback given adds a page to the Inspirehub story. We invite
           you to be a part of this journey. Share your projects, your ideas, and
