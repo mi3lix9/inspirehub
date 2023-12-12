@@ -233,7 +233,7 @@ const ShowProject: React.FC = () => {
                 </div>
               </AccordionItem>
 
-              <div className="w-full h-auto mx-auto mt-16 ">
+              <div className="w-2/3 h-auto mx-auto mt-16 ">
                 <img src={projectRateImage} alt="Project rate" />
               </div>
 
