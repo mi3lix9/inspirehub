@@ -4,20 +4,20 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import Layout from "./layouts/Layout.tsx";
 import AboutUs from "./pages/about-us.tsx";
-import AI from "./pages/ai.tsx";
 import ContactUs from "./pages/contact-us.tsx";
 import EditProfile from "./pages/EditProfilePage.tsx";
-import Main from "./pages/Main.tsx";
 import NewPassword from "./pages/NewPassword.tsx";
 import Policy from "./components/Policy.tsx";
 import ShowProfilePage from "./pages/ShowProfilePage.tsx";
 import Login from "./pages/login.tsx";
 import Register from "./pages/register.tsx";
+import HomePage from "./pages/Home.tsx";
+import AddProject from "./pages/UploadProject.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: <HomePage />,
   },
   {
     path: "/about-us",
@@ -58,6 +58,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/upload-project",
+    element: <AddProject />,
   },
 ]);
 

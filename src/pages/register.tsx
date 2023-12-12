@@ -1,9 +1,7 @@
 import React from "react";
-import { createSupabaseServer } from "../utils/supabase.ts";
 import { useState } from "react";
 import Policy from "../components/Policy.tsx";
 import PasswordStrengthIndicator from "..//components/UI/PasswordStrengthIndicator";
-// import { $userCred } from "./signup/userCred.ts";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,55 +14,17 @@ import {
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { useStore } from "@nanostores/react";
-
-// if (Astro.request.method === "POST") {
-//   const supabase = createSupabaseServer(Astro.cookies);
-//   try {
-//     // Parse the request body
-//     const { email, password, firstName, lastName, major, academicLevel } =
-//       await Astro.request.json();
-
-//     // Sign up the user
-//     console.log(password);
-
-//     const { data, error } = await supabase.auth.signUp({ email, password });
-//     if (error) throw error;
-
-//     const user = data.user;
-//     if (user === null) throw new Error("User is null");
-
-//     // Insert profile data
-//     const { error: profileError } = await supabase.from("profiles").upsert({
-//       id: user.id ?? "cefec7c1-e966-47d0-9535-a57ac2abf0f3",
-//       full_name: `${firstName} ${lastName}`,
-//       major,
-//       academic_level: academicLevel,
-//     });
-
-//     if (profileError) throw profileError;
-
-//     // Return success response
-//     // return new Response(JSON.stringify({ message: "Sign up successful" }), {
-//     //   headers: { "Content-Type": "application/json" },
-//     //   status: 200,
-//     // });
-//     return Astro.redirect("/MainPage")
-//   } catch (error: any) {
-//     Astro.redirect("/SignUpPage")
-//     // Return error response
-//     // return new Response(JSON.stringify({ error: error.message }), {
-//     //   headers: { "Content-Type": "application/json" },
-//     //   status: 500,
-//     // });
-//   }
-// }
+import { $userCred } from "../utils/userCred.ts";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../utils/supabase.ts";
 
 const ShowIcon = () => <FontAwesomeIcon icon={faEye} />;
 const HideIcon = () => <FontAwesomeIcon icon={faEyeSlash} />;
 const MAX_STEPS = 4;
 
 const Register = () => {
-  // const store = useStore($userCred);
+  const navigate = useNavigate();
+  const store = useStore($userCred);
   const [formStep, setFormStep] = useState(0);
   const [showPolicy, setShowPolicy] = useState(false);
   const [showReturnButton, setShowReturnButton] = useState(false);
@@ -91,25 +51,33 @@ const Register = () => {
   };
 
   const handleSignUp = async () => {
+    const { academicLevel, email, firstName, lastName, major, password } =
+      store;
     try {
-      const response = await fetch("/SignUpPage", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(store),
+      // Parse the request body
+
+      // Sign up the user
+      const { data, error } = await supabase.auth.signUp({ email, password });
+      if (error) throw error;
+
+      const user = data.user;
+      if (user === null) throw new Error("User is null");
+
+      // Insert profile data
+      const { error: profileError } = await supabase.from("profiles").upsert({
+        id: user.id ?? "cefec7c1-e966-47d0-9535-a57ac2abf0f3",
+        full_name: `${firstName} ${lastName}`,
+        major,
+        academic_level: academicLevel,
       });
 
-      const data = await response.json();
+      if (profileError) throw profileError;
 
-      if (!response.ok) {
-        throw new Error(data.error || "Something went wrong during sign up");
-      }
-
-      return data; // Handle the successful response here
+      return navigate("/main");
     } catch (error: any) {
-      console.error("Error during sign up:", error.message);
-      // Handle the error here
+      console.error(error);
+      
+      // navigate("/register");
     } finally {
       $userCred.set({
         password: "",
@@ -121,7 +89,6 @@ const Register = () => {
       });
     }
   };
-
   const handlePolicyClick = () => {
     setShowPolicy(true);
     setShowReturnButton(true);
@@ -475,5 +442,4 @@ const Register = () => {
     </div>
   );
 };
-
 export default Register;

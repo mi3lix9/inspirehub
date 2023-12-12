@@ -1,6 +1,5 @@
-import { createSupabaseBrowser } from "./supabase";
+import { supabase } from "./supabase";
 
-const supabase = createSupabaseBrowser();
 interface TeamMember {
   name: string;
   LinkedIn: string;
@@ -24,6 +23,8 @@ interface InsertProjectWithToolsAndTeamMembersParams {
 export async function insertProject(
   params: InsertProjectWithToolsAndTeamMembersParams
 ) {
+  console.log({params});
+  
   const { data: project, error: perror } = await supabase
     .from("Project")
     .insert({
@@ -38,6 +39,8 @@ export async function insertProject(
     .select()
     .single();
 
+
+    
   await supabase
     .from("Tools")
     .insert({ project_id: project?.id!, tool: params.tools });

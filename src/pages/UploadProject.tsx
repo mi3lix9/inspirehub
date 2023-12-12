@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {../utils/supabase.ts
+import { insertProject } from "../utils/uploadProject";
+import { supabase } from "../utils/supabase";
+import { useNavigate } from "react-router-dom";
+import {
   faCircleXmark,
   faCloudArrowUp,
   faPlus,
-  faFileUpload,
   faTimesCircle,
+  faFileUpload,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import { createSupabaseBrowser } from "../utils/supabase";
-import { insertProject } from "../utils/uploadProject";
-
 interface TeamMember {
   name: string;
   linkedIn: string;
@@ -26,10 +26,6 @@ const teamMemberVariants = {
 };
 
 export default function AddProject() {
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([
-    { name: "", linkedIn: "", twitter: "" },
-  ]);
-
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [category, setCategory] = useState("");
@@ -46,14 +42,102 @@ export default function AddProject() {
   const [file, setFile] = useState<File | null>();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
+  const navigate = useNavigate();
+
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([
+    { name: "", linkedIn: "", twitter: "" },
+  ]);
 
   useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user === null || typeof user === "undefined") {
+        navigate("/login");
+      }
+    });
+
     const interval = setInterval(() => {
       setSelectedIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 3000);
     return () => clearInterval(interval);
   }, [images]);
 
+  const handleSubmit = async () => {
+    // Simple form validation as an example
+    if (!title || !description) {
+      setSubmitMessage("Please fill in all required fields.");
+      return;
+    }
+
+    setIsSubmitted(false);
+    setSubmitMessage("");
+
+    try {
+      // let imageUrl = "";
+      // if (file) {
+      //   // Upload the image to Supabase storage
+      //   const fileExt = file.name.split(".").pop();
+      //   const filePath = `${title
+      //     .replace(/\s+/g, "_")
+      //     .toLowerCase()}_mainimage.${fileExt}`;
+      //   const { data: fileData, error: uploadError } = await supabase.storage
+      //     .from("projects")
+      //     .upload(filePath, file);
+
+      //   if (uploadError) {
+      //     throw new Error(uploadError.message);
+      //   }
+
+      //   // Construct the URL to access the file
+      //   // Note: Adjust this based on how your Supabase URL structure is set up
+      //   imageUrl = `${supabase.storage.getUrl("projects")}/${filePath}`;
+      // }
+
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      // Insert project data into the database
+      await insertProject({
+        title,
+        problem: "problem",
+        motivation,
+        solution: "solution",
+        creatorID: user!.id,
+        imageURL: "",
+        description,
+        category,
+        tools: tools,
+        teamMembers: teamMembers.map((member) => ({
+          LinkedIn: member.linkedIn,
+          name: member.name,
+          Twitter: member.twitter,
+          photo: "",
+        })),
+
+        
+      });
+
+      // Set submission state and display a success message
+      setIsSubmitted(true);
+      setSubmitMessage("Your project has been uploaded successfully.");
+
+      // Reset form fields and state after successful upload
+      setTitle("");
+      setDescription("");
+      navigate("/projects")
+      // ...reset other state variables
+    } catch (error: any) {
+      // Handle any errors during the upload process
+      setSubmitMessage(`An error occurred: ${error.message}`);
+    }
+
+    // Remove the submit message after a delay
+    setTimeout(() => {
+      setSubmitMessage("");
+    }, 5000); // Adjust the delay as needed
+  };
+
+ 
   const handleAddTeamMember = () => {
     setTeamMembers([...teamMembers, { name: "", linkedIn: "", twitter: "" }]);
   };
@@ -127,136 +211,6 @@ export default function AddProject() {
       opacity: 1,
       transition: { type: "spring", stiffness: 90 },
     },
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    // Simple form validation as an example
-    if (!title || !description) {
-      setSubmitMessage('Please fill in all required fields.');
-      return;
-    }
-  
-    setIsSubmitted(false);
-    setSubmitMessage("");
-  
-    try {
-      // Initialize Supabase client
-      const supabase = createSupabaseBrowser();
-  
-      let imageUrl = "";
-      if (file) {
-        // Upload the image to Supabase storage
-        const fileExt = file.name.split('.').pop();
-        const filePath = `${title.replace(/\s+/g, '_').toLowerCase()}_mainimage.${fileExt}`;
-        const { data: fileData, error: uploadError } = await supabase.storage
-          .from('projects')
-          .upload(filePath, file);
-  
-        if (uploadError) {
-          throw new Error(uploadError.message);
-        }
-  
-        // Construct the URL to access the file
-        // Note: Adjust this based on how your Supabase URL structure is set up
-        imageUrl = `${supabase.storage.getUrl('projects')}/${filePath}`;
-      }
-  
-      // Insert project data into the database
-      const { error: insertError } = await insertProject({
-        title,
-        date,
-        category,
-        description,
-        motivation,
-        features,
-        resources,
-        tools,
-        imageUrl, // URL of the uploaded image
-        teamMembers: teamMembers.map(member => ({
-          LinkedIn: member.linkedIn,
-          name: member.name,
-          Twitter: member.twitter,
-          photo: "", // If you have photos for team members, handle their upload here as well
-        })),
-        // ...any other project details that need to be submitted
-      });
-  
-      if (insertError) {
-        throw new Error(insertError.message);
-      }
-  
-      // Set submission state and display a success message
-      setIsSubmitted(true);
-      setSubmitMessage("Your project has been uploaded successfully.");
-  
-      // Reset form fields and state after successful upload
-      setTitle('');
-      setDescription('');
-      // ...reset other state variables
-  
-    } catch (error) {
-      // Handle any errors during the upload process
-      setSubmitMessage(`An error occurred: ${error.message}`);
-    }
-  
-    // Remove the submit message after a delay
-    setTimeout(() => {
-      setSubmitMessage("");
-    }, 5000); // Adjust the delay as needed
-  };
-  
-    // Perform the submit logic here
-
-    // TODO: Upload the pics to supabase
-    /** The function is almost ready, just we need to create a bucket for each project, and uplead the picture(s). Then get the url and put it in the project insertion.
-    
-    Please note that: You can do the reverse also by uploading the entire project first then uploading the picture and update the table. 
-
-    You can choose etherways to implement it.
-    */
-    const supabase = createSupabaseBrowser();
-    
-    const { data: fileData } = await supabase.storage
-      .from("projects")
-      .upload(title + "_mainimage", file!);
-    const imageUrl = fileData?.path;
-
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    const creatorID = user?.id!;
-
-    // TODO: Complete this function
-    // This function is ready to insert the project. Note that it is not tested yet!
-
-    await insertProject({
-      title,
-      problem: "problem",
-      motivation,
-      solution: "solution",
-      creatorID,
-      imageURL: imageUrl ?? "",
-      description,
-      category,
-      tools: tools,
-      teamMembers: teamMembers.map((member) => ({
-        LinkedIn: member.linkedIn,
-        name: member.name,
-        Twitter: member.twitter,
-        photo: "",
-      })),
-    });
-
-    setIsSubmitted(true);
-    setSubmitMessage("Thank you! Your project has been uploaded successfully.");
-
-    // Remove the checkmark and message after a delay
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setSubmitMessage("");
-    }, 4000); // Extend the time if needed
   };
 
   // Variants for Framer Motion animations
@@ -617,5 +571,4 @@ export default function AddProject() {
       </div>
     </motion.div>
   );
-              }
-
+}
