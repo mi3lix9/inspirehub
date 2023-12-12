@@ -4,16 +4,14 @@ import React, { useState } from "react";
 import { supabase } from "../utils/supabase";
 import { useNavigate } from "react-router-dom";
 
-
-
 const Login: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleLogin() {
-    console.log({email,password});
-    
+    console.log({ email, password });
+
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -26,7 +24,7 @@ const Login: React.FC = () => {
   return (
     <>
       <div className="flex items-center justify-center min-h-screen px-5 py-5 bg-[#f7f7f7] min-w-screen font-roboto">
-        <div className="w-2/3 overflow-hidden text-gray-500 bg-gray-100 shadow-xl rounded-3xl">
+        <div className="w-2/3 mx-3 overflow-hidden text-gray-500 bg-gray-100 shadow-xl max-md:w-full rounded-3xl">
           <div className="w-full md:flex">
             <div className="hidden w-1/2 px-10 py-10 bg-[#5f7fbf] md:block">
               <svg
@@ -240,7 +238,7 @@ const Login: React.FC = () => {
                 </h1>
                 <p>Enter your information to sign in</p>
               </div>
-              <form onSubmit={e => e.preventDefault()}>
+              <form onSubmit={(e) => e.preventDefault()}>
                 <div className="flex mt-20 -mx-3">
                   <div className="w-full px-3 mb-5">
                     <label className="px-1 text-xs font-semibold">Email</label>
