@@ -18,8 +18,8 @@ import { $userCred } from "../utils/userCred.ts";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabase.ts";
 
-const ShowIcon = () => <FontAwesomeIcon icon={faEye} />;
-const HideIcon = () => <FontAwesomeIcon icon={faEyeSlash} />;
+// const ShowIcon = () => <FontAwesomeIcon icon={faEye} />;
+// const HideIcon = () => <FontAwesomeIcon icon={faEyeSlash} />;
 const MAX_STEPS = 4;
 
 const Register = () => {
@@ -76,7 +76,7 @@ const Register = () => {
       return navigate("/main");
     } catch (error: any) {
       console.error(error);
-      
+
       // navigate("/register");
     } finally {
       $userCred.set({
@@ -160,8 +160,8 @@ const Register = () => {
           showPolicy ? "opacity-100" : "opacity-100"
         }`}
       >
-        <div className="px-16 py-10">
-          <form>
+        <div className="px-16 py-10 max-md:px-8 ">
+          <form className="max-md:w-full">
             {formStep < MAX_STEPS && (
               <div className="flex items-center mb-2">
                 {formStep > 0 && (
