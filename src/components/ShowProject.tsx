@@ -42,6 +42,15 @@ const slides: Slide[] = [
   },
 ];
 
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(date);
+}
+
 type Project = Database["public"]["Views"]["projectdetails_extended"]["Row"];
 type TeamMembers = Database["public"]["Tables"]["TeamMembers"]["Row"];
 type Tools = Database["public"]["Tables"]["Tools"]["Row"];
@@ -134,7 +143,7 @@ const ShowProject: React.FC = () => {
       <div className="flex flex-col-reverse gap-6 mt-12 lg:flex-row">
         <section className="w-1/4 min-h-screen pt-5 bg-[#fafafa] rounded-lg shadow-md max-lg:w-full ">
           <div className="flex flex-col items-center justify-center max-w-md mx-auto my-6 text-[#121212] font-roboto divide-y divide-[#c4c4c4]">
-            <div className="flex flex-col items-center justify-center gap-2 pt-6 pb-12 w-full">
+            <div className="flex flex-col items-center justify-center w-full gap-2 pt-6 pb-12">
               <p className="mb-2 text-base font-medium tracking-wider text-[#2b2b2b] uppercase">
                 Rating
               </p>
@@ -157,7 +166,7 @@ const ShowProject: React.FC = () => {
                 </a>
               </div>
             </div>
-            <div className="flex flex-col items-center justify-center gap-2 py-12 w-full">
+            <div className="flex flex-col items-center justify-center w-full gap-2 py-12">
               <p className="mb-2 text-base font-medium tracking-wider text-[#2b2b2b] uppercase">
                 Category
               </p>
@@ -165,7 +174,7 @@ const ShowProject: React.FC = () => {
                 {project.category}
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center gap-2 py-12 w-full">
+            <div className="flex flex-col items-center justify-center w-full gap-2 py-12">
               <p className="mb-2 text-base font-medium tracking-wider text-[#2b2b2b] uppercase">
                 Budget
               </p>
@@ -173,15 +182,15 @@ const ShowProject: React.FC = () => {
                 {/* {project.budget} <span>{project.currency}</span> */}
               </p>
             </div>
-            <div className="flex flex-col items-center justify-center gap-2 py-12 w-full">
+            <div className="flex flex-col items-center justify-center w-full gap-2 py-12">
               <dt className="mb-2 text-base font-medium tracking-wider text-[#2b2b2b] uppercase">
                 Date
               </dt>
               <dd className="text-base font-medium text-[#5e5e5e]">
-                {project.created_at}
+                {project.created_at ? formatDate(project.created_at) : "N/A"}
               </dd>
             </div>
-            <div className="flex flex-col items-center justify-center gap-2 px-16 py-12 w-full">
+            <div className="flex flex-col items-center justify-center w-full gap-2 px-16 py-12">
               <AccordionItem
                 id={1}
                 header="Team Members"
@@ -303,7 +312,7 @@ const ShowProject: React.FC = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="mt-5 gap-3 sm:mt-4 sm:flex sm:flex-row-reverse">
+                        <div className="gap-3 mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                           <button
                             className="flex select-none items-center cursor-pointer justify-center rounded-lg  bg-[#5f7fbf] border-2 border-[#5f7fbf] px-4 py-2 mt-3
                                     text-base font-bold text-white align-middle transition-all duration-700 hover:bg-[#3e60a3] hover:border-[#3e60a3] focus:outline-none shadow-md hover:shadow-xl
@@ -336,7 +345,7 @@ const ShowProject: React.FC = () => {
               aria-live="assertive"
               className="fixed inset-0 flex items-end px-4 py-6 mt-12 pointer-events-none sm:p-6 sm:items-start"
             >
-              <div className="w-full flex flex-col items-center space-y-4 sm:items-end">
+              <div className="flex flex-col items-center w-full space-y-4 sm:items-end">
                 {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
                 <Transition
                   show={showSuccessfulRatingMessage}
@@ -348,12 +357,12 @@ const ShowProject: React.FC = () => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <div className="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+                  <div className="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg pointer-events-auto ring-1 ring-black ring-opacity-5">
                     <div className="p-4">
                       <div className="flex items-start">
                         <div className="flex-shrink-0">
                           <CheckCircleIcon
-                            className="h-6 w-6 text-green-400"
+                            className="w-6 h-6 text-green-400"
                             aria-hidden="true"
                           />
                         </div>
@@ -365,15 +374,15 @@ const ShowProject: React.FC = () => {
                             Your feedback has been successfully recorded.
                           </p>
                         </div>
-                        <div className="ml-4 flex-shrink-0 flex">
+                        <div className="flex flex-shrink-0 ml-4">
                           <button
-                            className="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="inline-flex text-gray-400 bg-white rounded-md hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             onClick={() => {
                               setShowSuccessfulRatingMessage(false);
                             }}
                           >
                             <span className="sr-only">Close</span>
-                            <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                            <XMarkIcon className="w-5 h-5" aria-hidden="true" />
                           </button>
                         </div>
                       </div>
@@ -387,7 +396,7 @@ const ShowProject: React.FC = () => {
               aria-live="assertive"
               className="fixed inset-0 flex items-end px-4 py-6 mt-12 pointer-events-none sm:p-6 sm:items-start"
             >
-              <div className="w-full flex flex-col items-center space-y-4 sm:items-end">
+              <div className="flex flex-col items-center w-full space-y-4 sm:items-end">
                 {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
                 <Transition
                   show={showRepeatedRatingMessage}
@@ -399,12 +408,12 @@ const ShowProject: React.FC = () => {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
                 >
-                  <div className="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+                  <div className="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg pointer-events-auto ring-1 ring-black ring-opacity-5">
                     <div className="p-4">
                       <div className="flex items-start">
                         <div className="flex-shrink-0">
                           <XCircleIcon
-                            className="h-6 w-6 text-red-400"
+                            className="w-6 h-6 text-red-400"
                             aria-hidden="true"
                           />
                         </div>
@@ -416,15 +425,15 @@ const ShowProject: React.FC = () => {
                             You have already rated this project.
                           </p>
                         </div>
-                        <div className="ml-4 flex-shrink-0 flex">
+                        <div className="flex flex-shrink-0 ml-4">
                           <button
-                            className="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="inline-flex text-gray-400 bg-white rounded-md hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             onClick={() => {
                               setShowRepeatedRatingMessage(false);
                             }}
                           >
                             <span className="sr-only">Close</span>
-                            <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                            <XMarkIcon className="w-5 h-5" aria-hidden="true" />
                           </button>
                         </div>
                       </div>
