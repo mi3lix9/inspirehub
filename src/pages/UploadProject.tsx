@@ -61,7 +61,8 @@ export default function AddProject() {
     return () => clearInterval(interval);
   }, [images]);
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>    ) => {
+    e.preventDefault()
     // Simple form validation as an example
     if (!title || !description) {
       setSubmitMessage("Please fill in all required fields.");
