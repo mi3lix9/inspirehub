@@ -43,7 +43,7 @@ export default function LearnMore() {
             </p>
             <div className="flex items-center gap-3">
               <a
-                href="SignUpPage"
+                href="register"
                 className="flex select-none items-center justify-center cursor-pointer
                  rounded-lg bg-[#5f7fbf] border-2 border-[#5f7fbf] px-[1.693rem]
                    py-2 text-base font-bold text-white align-middle
