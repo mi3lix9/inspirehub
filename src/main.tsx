@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import "./App.css";
 import Layout from "./layouts/Layout.tsx";
 import AboutUs from "./pages/about-us.tsx";
 import ContactUs from "./pages/contact-us.tsx";
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/projects",
-    element:<Projects />
+    element: <Projects />,
   },
   {
     path: "/about-us",
@@ -74,8 +75,7 @@ const router = createBrowserRouter([
   {
     path: "/project/:project_id",
     element: <ShowProject />,
-
-  }
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
