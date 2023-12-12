@@ -8,7 +8,7 @@ import {
   faAngleRight,
   faScrewdriverWrench,
   faPeopleGroup,
-  faBook,
+  // faBook,
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import { faXTwitter, faLinkedin } from "@fortawesome/free-brands-svg-icons";
