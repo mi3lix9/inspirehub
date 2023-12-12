@@ -437,7 +437,7 @@ const AI: React.FC = () => {
                 className="flex select-none items-center justify-center rounded-lg border-2 border-[#5f7fbf]
                             px-4 py-2 text-base font-bold text-[#5f7fbf] align-middle transition-all duration-500
                           hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
-                href="AIPage"
+                href="ai"
               >
                 Restart
               </a>

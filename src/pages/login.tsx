@@ -284,7 +284,7 @@ const Login: React.FC = () => {
 
                 <div className="mb-20 text-right">
                   <a
-                    href="ForgotPasswordPage"
+                    href="forgot-password"
                     className="inline-block text-[#809bd0] hover:text-[#3e60a3] hover:underline transition-all duration-500"
                   >
                     Forgot password?

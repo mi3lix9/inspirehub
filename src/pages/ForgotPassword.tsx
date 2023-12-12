@@ -38,7 +38,7 @@ const ForgotPassword: React.FC = () => (
             <div className="flex flex-col -mx-3">
               <div className="w-full px-3 mt-10">
                 <a
-                  href="NewPasswordPage"
+                  href="new-password"
                   className="block w-full max-w-xs px-3 py-3 mx-auto text-center font-semibold text-lg text-white rounded-lg uppercase
                    bg-[#5f7fbf] border-2 border-[#5f7fbf] font-roboto transition-all duration-700 hover:bg-[#3e60a3] focus:outline-none shadow-md hover:shadow-xl
                   disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer"
