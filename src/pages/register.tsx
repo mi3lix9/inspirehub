@@ -18,8 +18,6 @@ import { $userCred } from "../utils/userCred.ts";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabase.ts";
 
-// const ShowIcon = () => <FontAwesomeIcon icon={faEye} />;
-// const HideIcon = () => <FontAwesomeIcon icon={faEyeSlash} />;
 const MAX_STEPS = 4;
 
 const Register = () => {
