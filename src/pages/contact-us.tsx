@@ -51,10 +51,7 @@ const ContactUs: React.FC = () => (
                   <input type="checkbox" className="form-checkbox" />
                   <span className="ml-2 text-sm text-gray-700">
                     You agree to our{" "}
-                    <a
-                      href="PolicyPage"
-                      className="text-[#bfa260] hover:underline"
-                    >
+                    <a href="policy" className="text-[#bfa260] hover:underline">
                       Privacy Policy
                     </a>
                     .
