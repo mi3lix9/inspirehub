@@ -36,7 +36,7 @@ export default function AddProject() {
   const [resources, setResources] = useState("");
   const [tools, setTools] = useState("");
   const [others, setOthers] = useState("");
-  // const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState("");
 
   const [images, setImages] = useState<string[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -82,6 +82,7 @@ export default function AddProject() {
       // Insert project data into the database
       await insertProject({
         budget,
+        currency,
         title,
         problem: "problem",
         motivation,
@@ -345,7 +346,10 @@ export default function AddProject() {
                 onChange={(e) => setBudget(e.target.value)}
                 className="flex-1 px-4 py-2 transition-all duration-300 border rounded rounded-l focus:px-5 focus:outline-0"
               />
-              <select className="px-4 py-2 border-t border-b border-r rounded-r outline-0">
+              <select
+                onChange={(e) => setCurrency(e.target.value)}
+                className="px-4 py-2 border-t border-b border-r rounded-r outline-0"
+              >
                 <option value="SAR">SAR</option>
                 <option value="USD">USD</option>
               </select>
