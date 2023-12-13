@@ -7,7 +7,7 @@ const userProfile = {
   email: "Hassan@example.com",
   major: "Software Engineering ",
   academicLevel: "Undergraduate",
-  profilePictureUrl: "src/assets/ContactUs.png",
+  profilePictureUrl: "/public/ContactUs.png",
 };
 
 const ShowProfilePage: React.FC = () => (
@@ -77,7 +77,7 @@ const ShowProfilePage: React.FC = () => (
 
         <div className="flex justify-center w-full px-3 mb-6">
           <a
-            href="EditProfilePage"
+            href="/edit-profile"
             className="bg-[#5f7fbf] text-white font-bold py-2 px-16 rounded hover:bg-[#3e60a3] transition-all duration-700"
           >
             Edit Profile

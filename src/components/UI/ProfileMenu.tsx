@@ -31,7 +31,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ toggled, logout }) => {
         <MenuList placeholder={undefined}>
           <MenuItem className="flex items-center gap-2" placeholder={undefined}>
             <a
-              href="/ShowProfile"
+              href="/show-profile"
               className="flex items-center gap-2 text-left"
             >
               <svg
@@ -59,7 +59,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ toggled, logout }) => {
           </MenuItem>
           <MenuItem className="flex items-center gap-2" placeholder={undefined}>
             <a
-              href="/EditProfileUser"
+              href="/edit-profile"
               className="flex items-center gap-2 text-left"
             >
               <svg

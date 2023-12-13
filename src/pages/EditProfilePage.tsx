@@ -25,14 +25,14 @@ export default function EditProfile() {
   };
 
   return (
-    <div className="bg-[#f7f7f7] pt-[65px] flex flex-col items-center min-h-screen font-roboto">
+    <div className="bg-[#f7f7f7] flex flex-col items-center min-h-screen font-roboto">
       <div className="flex flex-col w-full max-w-4xl m-auto overflow-hidden bg-white rounded-lg shadow-lg md:flex-row">
         {/* Left Column for Profile Photo */}
         <div className="md:w-1/2 bg-[#f7f7f7] flex flex-col items-center p-8">
           <div className="relative w-64 h-64 mb-4 overflow-hidden rounded-full">
             <img
               className="object-cover w-full h-full"
-              src={imagePreviewUrl || "src/assets/photo.png"}
+              src={imagePreviewUrl || "/public/photo.png"}
               alt="Profile"
             />
           </div>
@@ -160,7 +160,7 @@ export default function EditProfile() {
 
             <div className="px-2">
               <a
-                href="NewPasswordPage"
+                href="/new-password"
                 className="bg-[#5f7fbf] text-white font-bold py-2 px-4 rounded hover:bg-[#3e60a3] transition-all duration-700"
               >
                 Change Password
