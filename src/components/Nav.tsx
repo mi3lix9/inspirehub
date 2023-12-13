@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "../utils/supabase";
+import ProfileMenu from "./UI/ProfileMenu";
 
 const navMotion = {
   visible: {
@@ -141,7 +142,7 @@ export default function Nav() {
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: -15 }}
         transition={{ delay: 0.35 }}
-        className="hidden gap-3  lg:flex lg:items-center lg:justify-center lg:text-sm"
+        className="hidden gap-3 lg:flex lg:items-center lg:justify-center lg:text-sm"
       >
         <a
           href="register"
@@ -160,6 +161,8 @@ export default function Nav() {
         >
           Sign in
         </a>
+
+        <ProfileMenu toggled={toggled} />
       </motion.div>
 
       {/* Hamburger Toggle */}
