@@ -31,6 +31,7 @@ export default function AddProject() {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [motivation, setMotivation] = useState("");
+  const [budget, setBudget] = useState("");
   const [features, setFeatures] = useState("");
   const [resources, setResources] = useState("");
   const [tools, setTools] = useState("");
@@ -80,6 +81,7 @@ export default function AddProject() {
 
       // Insert project data into the database
       await insertProject({
+        budget,
         title,
         problem: "problem",
         motivation,
@@ -336,6 +338,8 @@ export default function AddProject() {
                 name="budget"
                 type="number"
                 placeholder="5000"
+                value={budget}
+                onChange={e => setBudget(e.target.value)}
                 className="flex-1 px-4 py-2 transition-all duration-300 border rounded rounded-l focus:px-5 focus:outline-0"
               />
               <select className="px-4 py-2 border-t border-b border-r rounded-r outline-0">
