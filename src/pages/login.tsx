@@ -18,7 +18,8 @@ const Login: React.FC = () => {
     });
     if (error) return console.error(error);
 
-    navigate("/");
+    navigate("/projects");
+    window.location.reload();
   }
 
   return (
