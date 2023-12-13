@@ -205,7 +205,7 @@ const ShowProject: React.FC = () => {
                   />
                 }
               >
-                <div className="space-y-4">
+                <div className="space-y-4 overflow-auto max-h-[200px]">
                   {" "}
                   {teamMembers.map((member, index) => (
                     <div
