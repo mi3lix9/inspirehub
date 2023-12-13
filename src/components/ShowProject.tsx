@@ -475,7 +475,7 @@ const ShowProject: React.FC = () => {
                 {slides.map((slide, index) => (
                   <img
                     key={project.image_url}
-                    src={project!.image_url! as stri}
+                    src={project!.image_url! as string}
                     alt={`Slide ${index}`}
                     className={`w-full h-full object-contain rounded-xl absolute transition-opacity duration-700 ease-in-out ${
                       index === currentIndex ? "opacity-100" : "opacity-0"

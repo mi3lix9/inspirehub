@@ -66,7 +66,7 @@ export const TableComponent = () => (
     <div className="flex flex-wrap justify-center gap-7 ">
       <div className="flex justify-center w-full mb-5 gap-7 max-md:flex-col">
         <DeveloperCard
-          imagePath="src/assets/photo.png"
+          imagePath="/public/photo.png"
           name="Hassan Alabdulal"
           title="Frontend Developer"
           linkedInUrl="https://www.linkedin.com/in/"
@@ -74,7 +74,7 @@ export const TableComponent = () => (
           githubUrl="https://github.com/HassanAlabdulal"
         />
         <DeveloperCard
-          imagePath="src/assets/photo.png"
+          imagePath="/public/photo.png"
           name="Abdullah Almatawah"
           title="Frontend Developer"
           linkedInUrl="https://www.linkedin.com/in/michaelbrown"
@@ -83,7 +83,7 @@ export const TableComponent = () => (
         />
 
         <DeveloperCard
-          imagePath="src/assets/photo.png"
+          imagePath="/public/photo.png"
           name="Ali Alabdulaal"
           title="UI/UX Designer"
           linkedInUrl="https://www.linkedin.com/in/emilyjohnson"
@@ -93,7 +93,7 @@ export const TableComponent = () => (
       </div>
       <div className="flex justify-center w-full mb-10 gap-7 max-md:flex-col">
         <DeveloperCard
-          imagePath="src/assets/photo.png"
+          imagePath="/public/photo.png"
           name="Ali Alshaikh"
           title="Backend Developer"
           linkedInUrl="https://www.linkedin.com/in/janesmith"
@@ -101,7 +101,7 @@ export const TableComponent = () => (
           githubUrl="https://github.com/janesmith"
         />
         <DeveloperCard
-          imagePath="src/assets/photo.png"
+          imagePath="/public/photo.png"
           name="Hussain Alzayer"
           title="Data Scientist"
           linkedInUrl="https://www.linkedin.com/in/sarahdavis"

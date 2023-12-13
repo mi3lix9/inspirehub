@@ -73,7 +73,7 @@ const ContactUs: React.FC = () => (
           <div className="flex items-center justify-center p-8 md:w-1/2">
             <img
               className="max-w-full max-h-full"
-              src="src/assets/ContactUs.png"
+              src="/public/ContactUs.png"
               alt="Contact us"
             />
           </div>
