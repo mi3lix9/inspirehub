@@ -17,7 +17,9 @@ interface ProfileMenuProps {
 
 const ProfileMenu: React.FC<ProfileMenuProps> = ({ toggled, logout }) => {
   return (
-    <div className={`lg:block ${toggled ? "block" : "hidden"} absolute  mr-12`}>
+    <div
+      className={`lg:block ${toggled ? "block" : "hidden"} absolute  mr-12x`}
+    >
       <Menu>
         <MenuHandler>
           <Avatar
