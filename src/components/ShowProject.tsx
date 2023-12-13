@@ -64,7 +64,7 @@ const StyledRating = withStyles({
 })(Rating);
 
 const ShowProject: React.FC = () => {
-  const [project, setProject] = useState<Project>({});
+  const [project, setProject] = useState<Project | null>(null);
   const [teamMembers, setMembers] = useState<TeamMembers[]>([]);
   const [tools, setTools] = useState<Tools[]>([]);
   const params = useParams();
@@ -138,6 +138,9 @@ const ShowProject: React.FC = () => {
     setShowSuccessfulRatingMessage(true);
     setOpen(false);
   };
+
+  // TODO: FRONT END TEAM EDIT THIS
+  if (project === null) return <>loading</>;
 
   return (
     <div className="min-h-screen px-8 py-12 mx-auto bg-[#f7f7f7] text-[#121212]">
