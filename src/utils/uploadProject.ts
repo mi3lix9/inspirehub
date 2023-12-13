@@ -18,6 +18,7 @@ interface InsertProjectWithToolsAndTeamMembersParams {
   category: string;
   tools: string;
   teamMembers: TeamMember[];
+  budget: string;
 }
 
 export async function insertProject(
@@ -33,6 +34,7 @@ export async function insertProject(
       category: params.category,
       description: params.description,
       motivation: params.motivation,
+      budget: params.budget,
     })
     .select()
     .single();
@@ -43,15 +45,16 @@ export async function insertProject(
       .upload(project!.id + "/proto.png", params.image);
     const url = supabase.storage.from("projects").getPublicUrl(data!.path);
     console.log(url);
-    
-    const {error: err} = await supabase.from("Project").update({ image_url: url.data.publicUrl })
-    .eq("id", project!.id);;
-    console.log({err});
-    
+
+    const { error: err } = await supabase
+      .from("Project")
+      .update({ image_url: url.data.publicUrl })
+      .eq("id", project!.id);
+    console.log({ err });
   }
   await supabase
     .from("Tools")
-    .insert({ project_id: project?.id!, tool: params.tools })
+    .insert({ project_id: project?.id!, tool: params.tools });
 
   for (const member of params.teamMembers) {
     await supabase.from("TeamMembers").insert({

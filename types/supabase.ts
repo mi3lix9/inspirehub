@@ -277,6 +277,7 @@ export interface Database {
       }
       Project: {
         Row: {
+          budget: string | null
           category: string | null
           created_at: string
           CreatorID: string
@@ -284,11 +285,13 @@ export interface Database {
           id: string
           image_url: string | null
           motivation: string | null
+          "motivation ": string | null
           problem: string
           solution: string
           title: string
         }
         Insert: {
+          budget?: string | null
           category?: string | null
           created_at?: string
           CreatorID: string
@@ -296,11 +299,13 @@ export interface Database {
           id?: string
           image_url?: string | null
           motivation?: string | null
+          "motivation "?: string | null
           problem: string
           solution: string
           title: string
         }
         Update: {
+          budget?: string | null
           category?: string | null
           created_at?: string
           CreatorID?: string
@@ -308,6 +313,7 @@ export interface Database {
           id?: string
           image_url?: string | null
           motivation?: string | null
+          "motivation "?: string | null
           problem?: string
           solution?: string
           title?: string
@@ -317,8 +323,8 @@ export interface Database {
             foreignKeyName: "Project_CreatorID_fkey"
             columns: ["CreatorID"]
             isOneToOne: false
-            referencedRelation: "ProjectCreator"
-            referencedColumns: ["CreatorID"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           }
         ]
       }
@@ -492,6 +498,7 @@ export interface Database {
       projectdetails: {
         Row: {
           average_rate: number | null
+          budget: string | null
           category: string | null
           created_at: string | null
           creator_name: string | null
@@ -509,14 +516,15 @@ export interface Database {
             foreignKeyName: "Project_CreatorID_fkey"
             columns: ["CreatorID"]
             isOneToOne: false
-            referencedRelation: "ProjectCreator"
-            referencedColumns: ["CreatorID"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           }
         ]
       }
       projectdetails_extended: {
         Row: {
           average_rate: number | null
+          budget: string | null
           category: string | null
           created_at: string | null
           creator_name: string | null
@@ -529,6 +537,7 @@ export interface Database {
           image_url: string | null
           motivation: string | null
           problem: string | null
+          project_motivation: string | null
           solution: string | null
           title: string | null
         }
@@ -537,8 +546,8 @@ export interface Database {
             foreignKeyName: "Project_CreatorID_fkey"
             columns: ["CreatorID"]
             isOneToOne: false
-            referencedRelation: "ProjectCreator"
-            referencedColumns: ["CreatorID"]
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           }
         ]
       }

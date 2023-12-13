@@ -104,7 +104,7 @@ const ShowProject: React.FC = () => {
       .from("Tools")
       .select("*")
       .eq("project_id", project!.id!);
-    setTools(tools);
+    setTools(tools as any);
   };
 
   useEffect(() => {
