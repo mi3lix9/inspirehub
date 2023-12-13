@@ -157,7 +157,7 @@ const ShowProject: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-screen">
         {/* Here you can use a spinner or any loading animation */}
-        <Spinner color="amber" />
+        <Spinner color="amber" className="w-12 h-12" />
       </div>
     );
   }
