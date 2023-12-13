@@ -2,6 +2,8 @@ import React, { useState, useEffect, Fragment } from "react";
 import { renderStars } from "../utils/renderStars";
 import CardWithImage from "../components/UI/Card.tsx";
 import AccordionItem from "../components/UI/Accordion.tsx";
+import { Spinner } from "@material-tailwind/react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAngleLeft,
@@ -77,6 +79,9 @@ const ShowProject: React.FC = () => {
   const [showRepeatedRatingMessage, setShowRepeatedRatingMessage] =
     useState(false); // Show message if user has already rated
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const goToPrevious = (): void => {
     const isFirstSlide: boolean = currentIndex === 0;
     const newIndex: number = isFirstSlide
@@ -86,25 +91,34 @@ const ShowProject: React.FC = () => {
   };
 
   const getProjects = async () => {
-    const { project_id } = params;
-    const { data: project, error: projectError } = await supabase
-      .from("projectdetails_extended")
-      .select("*")
-      .eq("id", project_id!)
-      .single();
-    setProject(project!);
+    setIsLoading(true);
+    setError(null);
+    try {
+      const { project_id } = params;
+      const { data: project, error: projectError } = await supabase
+        .from("projectdetails_extended")
+        .select("*")
+        .eq("id", project_id!)
+        .single();
+      setProject(project!);
 
-    const { data: teamMembers, error: membersError } = await supabase
-      .from("TeamMembers")
-      .select("*")
-      .eq("project_id", project!.id!);
-    setMembers(teamMembers!);
+      const { data: teamMembers, error: membersError } = await supabase
+        .from("TeamMembers")
+        .select("*")
+        .eq("project_id", project!.id!);
+      setMembers(teamMembers!);
 
-    const { data: tools, error: toolsError } = await supabase
-      .from("Tools")
-      .select("*")
-      .eq("project_id", project!.id!);
-    setTools(tools as any);
+      const { data: tools, error: toolsError } = await supabase
+        .from("Tools")
+        .select("*")
+        .eq("project_id", project!.id!);
+      setTools(tools as any);
+
+      setIsLoading(false);
+    } catch (err) {
+      setError(err.message || "Failed to load project data");
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -139,8 +153,22 @@ const ShowProject: React.FC = () => {
     setOpen(false);
   };
 
-  // TODO: FRONT END TEAM EDIT THIS
-  if (project === null) return <>loading</>;
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        {/* Here you can use a spinner or any loading animation */}
+        <Spinner color="amber" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen text-red-600">
+        <div>Error: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen px-8 py-12 mx-auto bg-[#f7f7f7] text-[#121212]">
