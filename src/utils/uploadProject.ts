@@ -19,6 +19,9 @@ interface InsertProjectWithToolsAndTeamMembersParams {
   tools: string;
   teamMembers: TeamMember[];
   budget: string;
+  resources: string;
+  others: string;
+  currency: string;
 }
 
 export async function insertProject(
@@ -35,6 +38,9 @@ export async function insertProject(
       description: params.description,
       motivation: params.motivation,
       budget: params.budget,
+      currency: params.currency,
+      others: params.others,
+      resources: params.resources,
     })
     .select()
     .single();

@@ -92,11 +92,14 @@ export default function AddProject() {
         description,
         category,
         tools: tools,
+        resources,
+        others,
         teamMembers: teamMembers.map((member) => ({
           LinkedIn: member.linkedIn,
           name: member.name,
           Twitter: member.twitter,
           photo: "",
+          
         })),
       });
 
