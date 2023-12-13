@@ -33,13 +33,13 @@ type Slide = {
 
 const slides: Slide[] = [
   {
-    url: "src/assets/Reset password.png",
+    url: "/public/Reset password.png",
   },
   {
-    url: "src/assets/Forgot password.png",
+    url: "/public/Forgot password.png",
   },
   {
-    url: "src/assets/ContactUs.png",
+    url: "/public/ContactUs.png",
   },
 ];
 
@@ -475,7 +475,7 @@ const ShowProject: React.FC = () => {
                 {slides.map((slide, index) => (
                   <img
                     key={project.image_url}
-                    src={project!.image_url! as any}
+                    src={project!.image_url! as stri}
                     alt={`Slide ${index}`}
                     className={`w-full h-full object-contain rounded-xl absolute transition-opacity duration-700 ease-in-out ${
                       index === currentIndex ? "opacity-100" : "opacity-0"
@@ -515,17 +515,17 @@ const ShowProject: React.FC = () => {
               <div className="py-6">
                 <div className="grid items-stretch min-h-0 grid-cols-1 gap-6 md:grid-cols-3">
                   <CardWithImage
-                    image="src/assets/Description.png"
+                    image="/public/Description.png"
                     title="Description"
                     description={project.description!}
                   />
                   <CardWithImage
-                    image="src/assets/Motivation.png"
+                    image="/public/Motivation.png"
                     title="Motivation"
                     description={project.motivation!}
                   />
                   <CardWithImage
-                    image="src/assets/Features.png"
+                    image="/public/Features.png"
                     title="Features"
                     description={project.featureDescription!}
                   />
