@@ -9,33 +9,13 @@ import {
   Avatar,
   Typography,
 } from "@material-tailwind/react";
-// import { supabase } from "../../utils/supabase";
-// import { User } from "@supabase/supabase-js";
 
 interface ProfileMenuProps {
   toggled: boolean;
-  logout: () => void; // Add logout type here
+  logout: () => void;
 }
 
 const ProfileMenu: React.FC<ProfileMenuProps> = ({ toggled, logout }) => {
-  //   const [user, setUser] = useState<User | null>(null);
-
-  //   useEffect(() => {
-  //     async function getUser() {
-  //       const {
-  //         data: { user },
-  //       } = await supabase.auth.getUser();
-  //       setUser(user);
-  //       console.log(user);
-  //     }
-  //     getUser();
-  //   }, []);
-
-  //   async function logout() {
-  //     await supabase.auth.signOut();
-  //     setUser(null);
-  //   }
-
   return (
     <div className={`lg:block ${toggled ? "block" : "hidden"} absolute  mr-10`}>
       <Menu>
