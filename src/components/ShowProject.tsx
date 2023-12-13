@@ -66,7 +66,7 @@ const StyledRating = withStyles({
 })(Rating);
 
 const ShowProject: React.FC = () => {
-  const [project, setProject] = useState<Project | null>(null);
+  const [project, setProject] = useState<Project>();
   const [teamMembers, setMembers] = useState<TeamMembers[]>([]);
   const [tools, setTools] = useState<Tools[]>([]);
   const params = useParams();
@@ -115,7 +115,7 @@ const ShowProject: React.FC = () => {
       setTools(tools as any);
 
       setIsLoading(false);
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message || "Failed to load project data");
       setIsLoading(false);
     }
@@ -162,7 +162,7 @@ const ShowProject: React.FC = () => {
     );
   }
 
-  if (error) {
+  if (error || typeof project === "undefined") {
     return (
       <div className="flex items-center justify-center h-screen text-red-600">
         <div>Error: {error}</div>
