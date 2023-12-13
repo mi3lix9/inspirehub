@@ -180,7 +180,10 @@ const ShowProject: React.FC = () => {
                 Budget
               </p>
               <p className="text-base font-medium text-[#5e5e5e]">
-                {/* {project.budget} <span>{project.currency}</span> */}
+                <span>
+                  {project.budget}
+                  {/* <span>{project.currency}</span> */}
+                </span>
               </p>
             </div>
             <div className="flex flex-col items-center justify-center w-full gap-2 py-12">
@@ -574,9 +577,9 @@ const ShowProject: React.FC = () => {
                       className="text-[#121212] mr-2"
                     />
                   }
-                  children={undefined}
+                  // children={undefined}
                 >
-                  {/* <h1>{project.others}</h1> */}
+                  <h1>{project.others}</h1>
                 </AccordionItem>
               </div>
             </div>

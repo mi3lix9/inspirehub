@@ -36,6 +36,7 @@ export default function AddProject() {
   const [resources, setResources] = useState("");
   const [tools, setTools] = useState("");
   const [others, setOthers] = useState("");
+  // const [currency, setCurrency] = useState("");
 
   const [images, setImages] = useState<string[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -74,7 +75,6 @@ export default function AddProject() {
     setSubmitMessage("");
 
     try {
-  
       const {
         data: { user },
       } = await supabase.auth.getUser();
@@ -108,7 +108,7 @@ export default function AddProject() {
       setDescription("");
       // navigate("/projects")
       // ...reset other state variables
-      navigate("/projects")
+      navigate("/projects");
     } catch (error: any) {
       // Handle any errors during the upload process
       setSubmitMessage(`An error occurred: ${error.message}`);
@@ -321,7 +321,10 @@ export default function AddProject() {
 
             <div className="flex-1 ml-2">
               <label className="block text-[#bfa260] mb-2">Category:</label>
-              <select className="w-full px-4 py-2 border rounded h-[40px]">
+              <select
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full px-4 py-2 border rounded h-[40px]"
+              >
                 <option value="">Select Category</option>
                 <option value="technology">Technology</option>
                 <option value="marketing">Marketing</option>
@@ -339,7 +342,7 @@ export default function AddProject() {
                 type="number"
                 placeholder="5000"
                 value={budget}
-                onChange={e => setBudget(e.target.value)}
+                onChange={(e) => setBudget(e.target.value)}
                 className="flex-1 px-4 py-2 transition-all duration-300 border rounded rounded-l focus:px-5 focus:outline-0"
               />
               <select className="px-4 py-2 border-t border-b border-r rounded-r outline-0">
