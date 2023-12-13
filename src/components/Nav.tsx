@@ -91,7 +91,7 @@ export default function Nav() {
       </div>
 
       {/* Nav Items animating in  */}
-      {!user && toggled && (
+      {toggled && (
         <motion.div
           variants={navMotion}
           animate="visible"
@@ -102,31 +102,31 @@ export default function Nav() {
             className="flex flex-col gap-24 text-lg text-black max-md:gap-12"
             isMobile={true}
           />
-
-          <motion.div
-            animate={{ opacity: 1, x: 0 }}
-            initial={{ opacity: 0, x: -75 }}
-            transition={{ delay: 0.9 }}
-            className="flex flex-col w-64 gap-4"
-          >
-            <motion.a
-              className="flex select-none items-center cursor-pointer justify-center rounded-lg  bg-[#5f7fbf] border-2 border-[#5f7fbf] px-4 py-2 mt-3
+          {!user && (
+            <motion.div
+              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: -75 }}
+              transition={{ delay: 0.9 }}
+              className="flex flex-col w-64 gap-4"
+            >
+              <motion.a
+                className="flex select-none items-center cursor-pointer justify-center rounded-lg  bg-[#5f7fbf] border-2 border-[#5f7fbf] px-4 py-2 mt-3
               text-base font-bold text-white align-middle transition-all duration-700 hover:bg-[#3e60a3] hover:border-[#3e60a3] focus:outline-none shadow-md hover:shadow-xl
               disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              href="login"
-            >
-              Sign in
-            </motion.a>
-            <motion.a
-              className="flex select-none items-center justify-center rounded-lg border-2 border-[#5f7fbf] cursor-pointer shadow-md hover:shadow-xl
+                href="login"
+              >
+                Sign in
+              </motion.a>
+              <motion.a
+                className="flex select-none items-center justify-center rounded-lg border-2 border-[#5f7fbf] cursor-pointer shadow-md hover:shadow-xl
               px-4 py-2 mt-3 text-base font-bold text-[#5f7fbf] align-middle transition-all duration-500
             hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
-              href="register"
-            >
-              Sign up
-            </motion.a>
-          </motion.div>
-
+                href="register"
+              >
+                Sign up
+              </motion.a>
+            </motion.div>
+          )}
           {/* <motion.button
             className="flex select-none items-center justify-center rounded-lg border-2 border-[#5f7fbf] cursor-pointer shadow-md hover:shadow-xl
         px-4 py-2 mt-3 text-base font-bold text-[#5f7fbf] align-middle transition-all duration-500
@@ -145,7 +145,6 @@ export default function Nav() {
         className="hidden gap-3 lg:flex lg:items-center lg:justify-center lg:text-sm"
       >
         {!user ? (
-          // These will show when user is null (not logged in) - desktop view
           <>
             <a
               href="register"
