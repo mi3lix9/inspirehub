@@ -8,7 +8,7 @@ import {
   faAngleRight,
   faScrewdriverWrench,
   faPeopleGroup,
-  // faBook,
+  faBook,
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import { faXTwitter, faLinkedin } from "@fortawesome/free-brands-svg-icons";
@@ -554,7 +554,7 @@ const ShowProject: React.FC = () => {
                 </AccordionItem>
               </div>
               <div className="flex items-center justify-center">
-                {/* <AccordionItem
+                <AccordionItem
                   id={1}
                   header="Resources"
                   icon={
@@ -563,9 +563,10 @@ const ShowProject: React.FC = () => {
                       className="text-[#121212] mr-2"
                     />
                   }
+                  children={undefined}
                 >
-                  <h1>{project.resources}</h1>
-                </AccordionItem> */}
+                  {/* <h1>{project.resources}</h1> */}
+                </AccordionItem>
               </div>
               <div className="flex items-center justify-center">
                 <AccordionItem
@@ -577,9 +578,9 @@ const ShowProject: React.FC = () => {
                       className="text-[#121212] mr-2"
                     />
                   }
-                  // children={undefined}
+                  children={undefined}
                 >
-                  <h1>{project.others}</h1>
+                  {/* <h1>{project.others}</h1> */}
                 </AccordionItem>
               </div>
             </div>
