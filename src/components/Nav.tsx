@@ -59,14 +59,14 @@ export default function Nav() {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const { data } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        setUser(session?.user ?? null);
-      }
-    });
-    return () => {
-      data.subscription.unsubscribe();
-    };
+    async function getUser() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+      console.log(user);
+    }
+    getUser();
   }, []);
 
   async function logout() {
