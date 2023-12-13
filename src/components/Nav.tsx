@@ -91,7 +91,7 @@ export default function Nav() {
       </div>
 
       {/* Nav Items animating in  */}
-      {toggled && (
+      {!user && toggled && (
         <motion.div
           variants={navMotion}
           animate="visible"
@@ -144,25 +144,30 @@ export default function Nav() {
         transition={{ delay: 0.35 }}
         className="hidden gap-3 lg:flex lg:items-center lg:justify-center lg:text-sm"
       >
-        <a
-          href="register"
-          className="middle none center rounded-lg bg-[#5f7fbf] border-2 border-[#5f7fbf]  py-2 px-4.5 lg:py-1.5 lg:px-3.5 text-md font-bold font-nunito  text-white 
+        {!user ? (
+          // These will show when user is null (not logged in) - desktop view
+          <>
+            <a
+              href="register"
+              className="middle none center rounded-lg bg-[#5f7fbf] border-2 border-[#5f7fbf]  py-2 px-4.5 lg:py-1.5 lg:px-3.5 text-md font-bold font-nunito  text-white 
            roundedtransition-all duration-700 hover:bg-[#3e60a3] focus:outline-none shadow-md hover:shadow-xl
            disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer"
-          data-ripple-light="true"
-        >
-          Sign up
-        </a>
-        <a
-          href="login"
-          className="middle none center rounded-lg border-2 border-[#5f7fbf] py-2 px-5 lg:py-1.5 lg:px-4 text-md font-bold font-nunito cursor-pointer  text-[#5f7fbf]
+              data-ripple-light="true"
+            >
+              Sign up
+            </a>
+            <a
+              href="login"
+              className="middle none center rounded-lg border-2 border-[#5f7fbf] py-2 px-5 mr-2 lg:py-1.5 lg:px-4 text-md font-bold font-nunito cursor-pointer  text-[#5f7fbf]
            transition-all hover:opacity-75 focus:ring focus:ring-indigo-200 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          data-ripple-dark="true"
-        >
-          Sign in
-        </a>
-
-        <ProfileMenu toggled={toggled} />
+              data-ripple-dark="true"
+            >
+              Sign in
+            </a>
+          </>
+        ) : (
+          <ProfileMenu toggled={toggled} logout={logout} />
+        )}
       </motion.div>
 
       {/* Hamburger Toggle */}

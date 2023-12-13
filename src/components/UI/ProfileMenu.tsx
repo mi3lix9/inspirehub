@@ -9,27 +9,35 @@ import {
   Avatar,
   Typography,
 } from "@material-tailwind/react";
-import { supabase } from "../../utils/supabase";
+// import { supabase } from "../../utils/supabase";
+// import { User } from "@supabase/supabase-js";
 
 interface ProfileMenuProps {
   toggled: boolean;
+  logout: () => void; // Add logout type here
 }
 
-const ProfileMenu: React.FC<ProfileMenuProps> = ({ toggled }) => {
-  const SignOut = async () => {
-    console.log("signOut Clicked");
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.log(error);
-    }
-  };
+const ProfileMenu: React.FC<ProfileMenuProps> = ({ toggled, logout }) => {
+  //   const [user, setUser] = useState<User | null>(null);
+
+  //   useEffect(() => {
+  //     async function getUser() {
+  //       const {
+  //         data: { user },
+  //       } = await supabase.auth.getUser();
+  //       setUser(user);
+  //       console.log(user);
+  //     }
+  //     getUser();
+  //   }, []);
+
+  //   async function logout() {
+  //     await supabase.auth.signOut();
+  //     setUser(null);
+  //   }
 
   return (
-    <div
-      className={`lg:block ${
-        toggled ? "block" : "hidden"
-      } absolute right-0 mr-3`}
-    >
+    <div className={`lg:block ${toggled ? "block" : "hidden"} absolute  mr-10`}>
       <Menu>
         <MenuHandler>
           <Avatar
@@ -98,43 +106,16 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ toggled }) => {
               </Typography>
             </a>
           </MenuItem>
-          <MenuItem className="flex items-center gap-2" placeholder={undefined}>
-            <a
-              href="/Notification"
-              className="flex items-center gap-2 text-left"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                width="16"
-                height="16"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-                />
-              </svg>
-
-              <Typography
-                variant="small"
-                className="font-medium"
-                placeholder={undefined}
-              >
-                Notifications
-              </Typography>
-            </a>
-          </MenuItem>
 
           <hr className="my-2 border-blue-gray-50" />
           <MenuItem
             className="flex items-center gap-2 "
             placeholder={undefined}
           >
-            <button className="flex items-center gap-2 text-left">
+            <button
+              className="flex items-center gap-2 text-left"
+              onClick={logout}
+            >
               <svg
                 width="16"
                 height="14"
@@ -153,7 +134,6 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ toggled }) => {
                 variant="small"
                 className="font-medium"
                 placeholder={undefined}
-                onClick={SignOut}
               >
                 Sign Out
               </Typography>

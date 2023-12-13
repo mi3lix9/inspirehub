@@ -19,6 +19,7 @@ const Login: React.FC = () => {
     if (error) return console.error(error);
 
     navigate("/");
+    window.location.reload();
   }
 
   return (
