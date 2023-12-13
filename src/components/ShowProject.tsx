@@ -25,7 +25,7 @@ import Box from "@material-ui/core/Box";
 import { withStyles } from "@material-ui/core/styles";
 import { supabase } from "../utils/supabase.ts";
 import { useParams } from "react-router-dom";
-import projectRateImage from "../assets/offer.svg";
+import offerImage from "../assets/offer.svg";
 
 type Slide = {
   url: string;
@@ -205,7 +205,7 @@ const ShowProject: React.FC = () => {
                   />
                 }
               >
-                <div className="space-y-4 overflow-auto max-h-[200px]">
+                <div className="space-y-4 overflow-auto max-h-32">
                   {" "}
                   {teamMembers.map((member, index) => (
                     <div
@@ -236,8 +236,8 @@ const ShowProject: React.FC = () => {
                 </div>
               </AccordionItem>
 
-              <div className="w-2/3 h-auto mx-auto mt-16 ">
-                <img src={projectRateImage} alt="Project rate" />
+              <div className="w-2/3 h-auto mx-auto mt-24 ">
+                <img src={offerImage} alt="Offer Jop" />
               </div>
 
               <div className="w-full mt-8">
@@ -464,7 +464,7 @@ const ShowProject: React.FC = () => {
           </div>
         </section>
 
-        <section className="flex items-center justify-center w-3/4 min-h-screen py-6 bg-[#fafafa] rounded-lg shadow-md max-lg:w-full ">
+        <section className="flex justify-center w-3/4 min-h-screen py-5 bg-[#fafafa] rounded-lg shadow-md max-lg:w-full ">
           <div className="w-5/6">
             <header className="my-6 text-center">
               <h1 className="mb-6 text-4xl font-bold font-nunito text-[#bfa260]">
