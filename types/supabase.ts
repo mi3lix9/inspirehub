@@ -281,12 +281,14 @@ export interface Database {
           category: string | null
           created_at: string
           CreatorID: string
+          currency: string | null
           description: string | null
           id: string
           image_url: string | null
           motivation: string | null
-          "motivation ": string | null
+          others: string | null
           problem: string
+          resources: string | null
           solution: string
           title: string
         }
@@ -295,12 +297,14 @@ export interface Database {
           category?: string | null
           created_at?: string
           CreatorID: string
+          currency?: string | null
           description?: string | null
           id?: string
           image_url?: string | null
           motivation?: string | null
-          "motivation "?: string | null
+          others?: string | null
           problem: string
+          resources?: string | null
           solution: string
           title: string
         }
@@ -309,12 +313,14 @@ export interface Database {
           category?: string | null
           created_at?: string
           CreatorID?: string
+          currency?: string | null
           description?: string | null
           id?: string
           image_url?: string | null
           motivation?: string | null
-          "motivation "?: string | null
+          others?: string | null
           problem?: string
+          resources?: string | null
           solution?: string
           title?: string
         }
@@ -503,11 +509,14 @@ export interface Database {
           created_at: string | null
           creator_name: string | null
           CreatorID: string | null
+          currency: string | null
           description: string | null
           id: string | null
           image_url: string | null
           motivation: string | null
+          others: string | null
           problem: string | null
+          resources: string | null
           solution: string | null
           title: string | null
         }
@@ -529,6 +538,7 @@ export interface Database {
           created_at: string | null
           creator_name: string | null
           CreatorID: string | null
+          currency: string | null
           description: string | null
           feature: string | null
           featureDescription: string | null
@@ -536,8 +546,10 @@ export interface Database {
           id: string | null
           image_url: string | null
           motivation: string | null
+          others: string | null
           problem: string | null
           project_motivation: string | null
+          resources: string | null
           solution: string | null
           title: string | null
         }
