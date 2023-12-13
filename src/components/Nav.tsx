@@ -127,13 +127,13 @@ export default function Nav() {
           </motion.div>
 
           {/* <motion.button
-              className="flex select-none items-center justify-center rounded-lg border-2 border-[#5f7fbf] cursor-pointer shadow-md hover:shadow-xl
+            className="flex select-none items-center justify-center rounded-lg border-2 border-[#5f7fbf] cursor-pointer shadow-md hover:shadow-xl
         px-4 py-2 mt-3 text-base font-bold text-[#5f7fbf] align-middle transition-all duration-500
       hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
-              onClick={logout}
-            >
-              Logout
-            </motion.button> */}
+            onClick={logout}
+          >
+            Logout
+          </motion.button> */}
         </motion.div>
       )}
 
@@ -141,7 +141,7 @@ export default function Nav() {
         animate={{ opacity: 1, y: 0 }}
         initial={{ opacity: 0, y: -15 }}
         transition={{ delay: 0.35 }}
-        className="flex gap-3 max-xl:hidden max-lg:hidden lg:flex lg:items-center lg:justify-center lg:text-sm "
+        className="hidden gap-3  lg:flex lg:items-center lg:justify-center lg:text-sm"
       >
         <a
           href="register"
