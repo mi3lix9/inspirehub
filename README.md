@@ -29,9 +29,10 @@ We believe in the power of community contribution. If you'd like to contribute t
 - Create a new feature branch.
 - Submit a pull request with a detailed description of your improvements or additions.
 
-## Documentation
+## Documentation & Poster
 
-Documentation with screenshots is included in the following link
 
-[Documentation](https://drive.google.com/file/d/1lMdDoU8VcHdIdeRR4xKC1IxTcD1QRXKm/view?usp=drive_link)
+Comprehensive documentation and visual highlights of Inspirehub can be accessed via the provided link, featuring detailed screenshots and our project's engaging poster.
+
+[Documentation](https://drive.google.com/file/d/1lMdDoU8VcHdIdeRR4xKC1IxTcD1QRXKm/view?usp=drive_link) - [Poster](https://drive.google.com/file/d/1_peYDZZmvQ1QjYcuS9leubIIpMMq3eCj/view?usp=drive_link) 
 
