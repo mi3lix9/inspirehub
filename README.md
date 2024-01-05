@@ -29,6 +29,9 @@ We believe in the power of community contribution. If you'd like to contribute t
 - Create a new feature branch.
 - Submit a pull request with a detailed description of your improvements or additions.
 
-## Support
-Need help? Visit our [Support Page](#) or contact us directly at support@inspirehub.com.
+## Documentation
+
+Documentation with screenshots is included in the following link
+
+[Documentation](https://drive.google.com/file/d/1lMdDoU8VcHdIdeRR4xKC1IxTcD1QRXKm/view?usp=drive_link)
 
